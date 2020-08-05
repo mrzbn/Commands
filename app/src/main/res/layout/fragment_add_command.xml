@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/how_to_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="36dp">
+
+        <TextView
+            android:id="@+id/how_to_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="How to"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/colorAccent"/>
+
+
+        <EditText
+            android:id="@+id/how_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Purpose Of Command"
+            app:layout_constraintTop_toBottomOf="@id/how_to_title"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorGray"
+            android:singleLine="true"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/line_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintTop_toBottomOf="@+id/how_to_root"
+        tools:layout_editor_absoluteX="36dp"
+        android:layout_marginTop="72dp">
+
+        <TextView
+            android:id="@+id/line_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Line"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/colorAccent"/>
+
+
+        <EditText
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Command Line"
+            android:singleLine="false"
+            app:layout_constraintTop_toBottomOf="@id/line_title"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorGray"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
+    <ProgressBar
+        android:id="@+id/add_command_progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="16dp"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

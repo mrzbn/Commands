@@ -1,4 +1,4 @@
-package com.example.commands.ui
+package com.example.commands.ui.commands
 
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +31,8 @@ class CommandsListAdapter : ListAdapter<Command, CommandsListAdapter.ItemViewHol
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Command) = with(itemView) {
-            itemView.command.text = item.howTo
+            itemView.how_to.text = item.howTo
+            itemView.line.text = item.line
 
             setOnClickListener {
                 // TODO: Handle on click

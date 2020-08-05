@@ -16,33 +16,9 @@ public class CommandsViewModel @ViewModelInject constructor(
     private val repository: CommandRepository
 ): ViewModel() {
 
-    private val _dataState: MutableLiveData<DataState<List<Command>>> = MutableLiveData()
+    val commandsState: LiveData<DataState<List<Command>>> = repository.getCommands().asLiveData()
 
-    val dataState: LiveData<DataState<List<Command>>>
-        get() = _dataState
-
-    fun setStateEvent(commandsStateEvent: CommandsStateEvent){
-        viewModelScope.launch {
-            when(commandsStateEvent){
-                is CommandsStateEvent.GetCommandsEvent -> {
-                    repository.getCommands()
-                        .onEach {dataState ->
-                            _dataState.value = dataState
-                        }
-                        .collect { }
-                }
-
-                CommandsStateEvent.None -> {
-                    // none
-                }
-            }
-        }
+    fun saveCommand(howTo: String, line: String): LiveData<DataState<Unit>> {
+        return repository.saveCommand(Command(howTo = howTo, line = line)).asLiveData()
     }
-}
-
-sealed class CommandsStateEvent{
-
-    object GetCommandsEvent: CommandsStateEvent()
-
-    object None: CommandsStateEvent()
 }

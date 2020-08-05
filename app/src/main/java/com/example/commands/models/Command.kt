@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Command constructor(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val howTo: String?,
-    val line: String?)
+    @PrimaryKey(autoGenerate = true) var id: Int? = null,
+    var howTo: String?,
+    var line: String?)

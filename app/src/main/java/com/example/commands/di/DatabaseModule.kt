@@ -20,13 +20,13 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideApplicationDatabase(@ApplicationContext context: Context): ApplicationDatabase {
-        val roomDatabaseCallback: RoomDatabase.Callback = object : RoomDatabase.Callback() {
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                db.execSQL("INSERT INTO command (howTo, line) Values ('howTo1', 'line1')")
-                db.execSQL("INSERT INTO command (howTo, line) Values ('howTo2', 'line2')")
-                db.execSQL("INSERT INTO command (howTo, line) Values ('howTo3', 'line3')")
-            }
-        }
+//        val roomDatabaseCallback: RoomDatabase.Callback = object : RoomDatabase.Callback() {
+//            override fun onCreate(db: SupportSQLiteDatabase) {
+//                db.execSQL("INSERT INTO command (howTo, line) Values ('howTo1', 'line1')")
+//                db.execSQL("INSERT INTO command (howTo, line) Values ('howTo2', 'line2')")
+//                db.execSQL("INSERT INTO command (howTo, line) Values ('howTo3', 'line3')")
+//            }
+//        }
 
         return Room
             .databaseBuilder(
@@ -34,7 +34,7 @@ object DatabaseModule {
                 ApplicationDatabase::class.java,
                 ApplicationDatabase.DATABASE_NAME)
             .fallbackToDestructiveMigration()
-            .addCallback(roomDatabaseCallback)
+//            .addCallback(roomDatabaseCallback)
             .build()
     }
 

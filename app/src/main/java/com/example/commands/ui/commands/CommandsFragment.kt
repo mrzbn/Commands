@@ -1,33 +1,29 @@
-package com.example.commands.ui
+package com.example.commands.ui.commands
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commands.R
-import com.example.commands.models.Command
 import com.example.commands.utils.DataState
-import com.example.commands.viewmodels.CommandsStateEvent
 import com.example.commands.viewmodels.CommandsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_commands.*
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class CommandsFragment : Fragment() {
 
-    private val viewModel: CommandsViewModel by viewModels()
+    private val viewModel: CommandsViewModel by activityViewModels()
 
     private lateinit var commandsAdapter: CommandsListAdapter
 
@@ -42,9 +38,11 @@ class CommandsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fab.setOnClickListener {
+            findNavController(this).navigate(R.id.action_commandsFragment_to_addCommandFragment)
+        }
         setupRecyclerView()
         subscribeObservers()
-        viewModel.setStateEvent(CommandsStateEvent.GetCommandsEvent)
     }
 
 
@@ -58,7 +56,7 @@ class CommandsFragment : Fragment() {
     }
 
     private fun subscribeObservers() {
-        viewModel.dataState.observe(viewLifecycleOwner, Observer {dataState ->
+        viewModel.commandsState.observe(viewLifecycleOwner, Observer {dataState ->
             when (dataState) {
                 is DataState.Success -> {
                     displayProgressBar(false)

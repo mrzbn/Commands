@@ -8,7 +8,16 @@
 
     <fragment
         android:id="@+id/commandsFragment"
-        android:name="com.example.commands.ui.CommandsFragment"
+        android:name="com.example.commands.ui.commands.CommandsFragment"
         android:label="fragment_commands"
-        tools:layout="@layout/fragment_commands" />
+        tools:layout="@layout/fragment_commands" >
+        <action
+            android:id="@+id/action_commandsFragment_to_addCommandFragment"
+            app:destination="@id/addCommandFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addCommandFragment"
+        android:name="com.example.commands.ui.addcommand.AddCommandFragment"
+        android:label="AddCommandFragment" />
 </navigation>
