@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/how_to_root"
@@ -21,7 +21,7 @@
             android:gravity="start"
             android:text="How to"
             app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/colorAccent"/>
+            />
 
 
         <EditText
@@ -30,8 +30,6 @@
             android:layout_height="wrap_content"
             android:hint="Enter Purpose Of Command"
             app:layout_constraintTop_toBottomOf="@id/how_to_title"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorGray"
             android:singleLine="true"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -54,7 +52,7 @@
             android:gravity="start"
             android:text="Line"
             app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/colorAccent"/>
+            />
 
 
         <EditText
@@ -63,9 +61,7 @@
             android:layout_height="wrap_content"
             android:hint="Enter Command Line"
             android:singleLine="false"
-            app:layout_constraintTop_toBottomOf="@id/line_title"
-            android:textColor="@color/colorAccent"
-            android:textColorHint="@color/colorGray"/>
+            app:layout_constraintTop_toBottomOf="@id/line_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

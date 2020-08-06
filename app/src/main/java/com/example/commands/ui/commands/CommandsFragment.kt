@@ -61,8 +61,13 @@ class CommandsFragment : Fragment() {
                 is DataState.Success -> {
                     displayProgressBar(false)
                     displayError(false)
-                    displayCommandsRecyclerView(true)
-                    commandsAdapter.submitList(dataState.data)
+                    if (dataState.data.size == 0)
+                        empty_text.visibility = View.VISIBLE
+                    else {
+                        empty_text.visibility = View.GONE
+                        displayCommandsRecyclerView(true)
+                        commandsAdapter.submitList(dataState.data)
+                    }
                 }
 
                 is DataState.Error -> {

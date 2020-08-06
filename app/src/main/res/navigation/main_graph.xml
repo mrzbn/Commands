@@ -13,7 +13,11 @@
         tools:layout="@layout/fragment_commands" >
         <action
             android:id="@+id/action_commandsFragment_to_addCommandFragment"
-            app:destination="@id/addCommandFragment" />
+            app:destination="@id/addCommandFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment

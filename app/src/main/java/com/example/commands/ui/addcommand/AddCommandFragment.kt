@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.example.commands.R
 import com.example.commands.utils.DataState
+import com.example.commands.utils.hideKeyboard
 import com.example.commands.viewmodels.CommandsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_add_command.*
@@ -36,13 +37,16 @@ class AddCommandFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fab.setOnClickListener {
+            hideKeyboard()
+
             val howTo = how_to.text.toString()
             val line = line.text.toString()
             viewModel.saveCommand(howTo, line).observe(viewLifecycleOwner, Observer {dataState ->
                 when (dataState) {
                     is DataState.Success -> {
                         displayProgressFab(false)
-                        NavHostFragment.findNavController(this).popBackStack()
+                        viewModel.getCommandsState()
+                        NavHostFragment.findNavController(this).navigateUp()
                     }
 
                     is DataState.Error -> {
@@ -59,11 +63,7 @@ class AddCommandFragment : Fragment() {
     }
 
     private fun displayError(msg: String?) {
-        if(msg != null)
-            error_text.text = msg
-        else
-            error_text.text = "Unknown Error"
-        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), msg ?: "Unknown Error", Toast.LENGTH_SHORT).show()
     }
 
     private fun displayProgressFab(isDisplayed: Boolean) {
