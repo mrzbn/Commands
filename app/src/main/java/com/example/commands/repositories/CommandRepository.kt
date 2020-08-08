@@ -13,8 +13,8 @@ class CommandRepository(private val commandDao: CommandDao) {
 
     fun getCommands(): Flow<DataState<List<Command>>> = flow {
         emit(DataState.Loading)
-        // for better understanding purpose
-        delay(1000)
+//        // for better understanding purpose
+//        delay(1000)
         try {
             val commands = commandDao.getAll()
             emit(DataState.Success(commands))
@@ -25,10 +25,20 @@ class CommandRepository(private val commandDao: CommandDao) {
 
     fun saveCommand(command: Command): Flow<DataState<Unit>> = flow {
         emit(DataState.Loading)
-        // for better understanding purpose
-        delay(1000)
+//        // for better understanding purpose
+//        delay(1000)
         try {
             commandDao.insert(command = command)
+            emit(DataState.Success(Unit))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+    fun deleteCommand(command: Command): Flow<DataState<Unit>> = flow {
+        emit(DataState.Loading)
+        try {
+            commandDao.delete(command)
             emit(DataState.Success(Unit))
         } catch (e: Exception) {
             emit(DataState.Error(e))

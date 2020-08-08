@@ -1,9 +1,6 @@
 package com.example.commands.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.commands.models.Command
 
 @Dao
@@ -14,4 +11,8 @@ public interface CommandDao {
 
     @Query("SELECT * FROM command")
     suspend fun getAll(): List<Command>
+
+    @Delete
+    suspend fun delete(command: Command)
+
 }

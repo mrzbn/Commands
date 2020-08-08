@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.commands.R
+import com.example.commands.models.Command
 import com.example.commands.utils.DataState
 import com.example.commands.viewmodels.CommandsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +50,27 @@ class CommandsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         commandsAdapter = CommandsListAdapter()
+        commandsAdapter.onItemClick = { command: Command, position: Int ->
+            command.let {
+                viewModel.deleteCommand(command)
+            }.run {
+                observe(viewLifecycleOwner, Observer {dataState ->
+                    when (dataState) {
+                        is DataState.Success -> {
+                            commandsAdapter.removeCommand(position)
+                        }
+
+                        is DataState.Error -> {
+                            Toast.makeText(requireContext(), dataState.exception.message ?: "Unknown Error", Toast.LENGTH_SHORT).show()
+                        }
+
+                        is DataState.Loading -> {
+                            //nothing
+                        }
+                    }
+                })
+            }
+        }
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))

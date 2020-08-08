@@ -14,6 +14,8 @@ class CommandsListAdapter : ListAdapter<Command, CommandsListAdapter.ItemViewHol
     DiffCallback()
 )  {
 
+    var onItemClick: ((Command, Int) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
             LayoutInflater.from(parent.context)
@@ -29,13 +31,19 @@ class CommandsListAdapter : ListAdapter<Command, CommandsListAdapter.ItemViewHol
         holder.bind(getItem(position))
     }
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun removeCommand(position: Int) {
+        val newList = currentList.toList() as ArrayList
+        newList.removeAt(position)
+        submitList(newList)
+    }
+
+    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Command) = with(itemView) {
             itemView.how_to.text = item.howTo
             itemView.line.text = item.line
 
-            setOnClickListener {
-                // TODO: Handle on click
+            itemView.delete_ic.setOnClickListener {
+                onItemClick?.invoke(item, adapterPosition)
             }
         }
     }
@@ -47,6 +55,6 @@ class DiffCallback : DiffUtil.ItemCallback<Command>() {
     }
 
     override fun areContentsTheSame(oldItem: Command, newItem: Command): Boolean {
-        return oldItem == newItem
+        return (oldItem.howTo.equals(newItem.howTo) || oldItem.line.equals(newItem.line))
     }
 }

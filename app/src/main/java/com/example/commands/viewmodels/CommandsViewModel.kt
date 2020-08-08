@@ -28,14 +28,17 @@ public class CommandsViewModel @ViewModelInject constructor(
     fun getCommandsState() {
         viewModelScope.launch {
             repository.getCommands()
-                .onEach {
-                        dataState -> _commandsState.value = dataState
+                .collect {
+                    _commandsState.value = it
                 }
-                .collect {}
         }
     }
 
     fun saveCommand(howTo: String, line: String): LiveData<DataState<Unit>> {
         return repository.saveCommand(Command(howTo = howTo, line = line)).asLiveData()
+    }
+
+    fun deleteCommand(command: Command): LiveData<DataState<Unit>> {
+        return repository.deleteCommand(command).asLiveData()
     }
 }

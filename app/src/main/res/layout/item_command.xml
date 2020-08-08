@@ -6,16 +6,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <TextView
-        android:id="@+id/how_to"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="run a cmd"
-        android:padding="16dp"
-        android:textColor="@color/colorAccent"
-        android:textStyle="bold"
-        android:textSize="16sp"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/how_to"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/delete_ic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="run a cmd" />
+
+        <ImageView
+            android:id="@+id/delete_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_baseline_delete_forever_24"
+            android:padding="16dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/line"
@@ -24,7 +45,7 @@
         android:gravity="top"
         android:padding="16dp"
         android:textColor="@color/colorGray"
-        app:layout_constraintTop_toBottomOf="@id/how_to"
+        app:layout_constraintTop_toBottomOf="@id/header"
         tools:text="dotnet run dotnet run dotnet run" />
 
 
